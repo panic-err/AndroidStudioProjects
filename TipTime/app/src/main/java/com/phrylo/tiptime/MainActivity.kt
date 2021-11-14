@@ -8,7 +8,7 @@ import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         val stringInTextField = binding.costOfService.text.toString()
 
-        val cost = stringInTextField.toDouble()
+        val cost = stringInTextField.toDoubleOrNull()
+
+        if (cost == null) {
+            binding.result.text = ""
+            return
+        }
 
         val selectedId = binding.tipOptions.checkedRadioButtonId
 
